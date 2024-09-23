@@ -2,6 +2,7 @@ package com.example.contador;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,9 +19,6 @@ public class MainActivity extends AppCompatActivity {
     EditText TextPeso;
     EditText TextAltura;
 
-    TextView IMC;
-    TextView sla;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,38 +27,17 @@ public class MainActivity extends AppCompatActivity {
         button = findViewById(R.id.ButtonClick);
         TextAltura = findViewById(R.id.TextAltura);
         TextPeso = findViewById(R.id.TextPeso);
-        IMC = findViewById(R.id.IMC);
-        sla = findViewById(R.id.sla);
 
-        button.setText("Carcular");
+        button.setText("Calcular");
         button.setOnClickListener(new View.OnClickListener() {
-            @Override
+
             public void onClick(View view) {
-                Float resul;
-                Float p = Float.valueOf(TextPeso.getText().toString());
-                Float A = Float.valueOf(TextAltura.getText().toString());
 
-                resul = p/(A*A);
+                Intent i = new Intent(getApplicationContext(), MainActivity2.class);
+                i.putExtra("x",TextPeso.getText().toString());
+                i.putExtra("y",TextAltura.getText().toString());
+                startActivity(i);
 
-                IMC.setText("Calculo: "+resul);
-                if (resul <= 18.5){
-                    sla.setText("Abaixo do peso");
-                }
-                else if(resul>18.5 && resul<24.9){
-                    sla.setText("Peso normal");
-                }
-                else if(resul>25 && resul<29.9){
-                    sla.setText("Sobrepeso");
-                }
-                else if(resul>30 && resul<34.9){
-                    sla.setText("Obesidade Grau I");
-                }
-                else if(resul>35 && resul<39.9){
-                    sla.setText("Obesidade Grau II");
-                }
-                else {
-                    sla.setText("Obesidade Grau III");
-                }
             }
          });
     }
