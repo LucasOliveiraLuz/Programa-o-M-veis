@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -18,13 +17,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         listView = findViewById(R.id.listView);
+        DAOPlaneta planetaDao = new DAOPlaneta();
+        PlanetaAdapter planetaAdapter = new PlanetaAdapter(this,R.layout.item_planeta,planetaDao.planetas);
+        listView.setAdapter(planetaAdapter);
 
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this,
-                android.R.layout.simple_expandable_list_item_1,
-                android.R.id.text1,
-                nomes);
 
-        listView.setAdapter(arrayAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
